@@ -9,6 +9,9 @@ pandas = "*"
 plotly = "*"
 boxsdk = "*"
 openpyxl = "*"
+beautifulsoup4 = "*"
+requests = "*"
+loguru = "*"
 
 [dev-packages]
 

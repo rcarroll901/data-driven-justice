@@ -36,7 +36,7 @@ def download_file_from_box(file_id, download_path):
     with open(download_path, 'wb') as f:
         client.file(file_id).download_to(f)
 
-def read_box_excel_to_df(file_id):
+def read_box_df(file_id, format='csv'):
     """Reads Excel file from Box and returns dataframe (with no need for 
     local cache)
 
@@ -45,18 +45,19 @@ def read_box_excel_to_df(file_id):
             Example: Navigate to file you want to download in browser. The URL
             will be of the form: "https://app.box.com/file/12345678910111" which means
             the ID will be "12345678910111".
+        format (str): "excel" or "csv"
 
     Returns:
         pd.Dataframe: dataframe with content from Box Excel file
-        
+
     """
     client = _get_box_client()
     s = client.file(file_id).content()
-    return pd.read_excel(s)
+    return pd.read_excel(s) if format == 'excel' else pd.read_csv(s)
 
 if __name__ == '__main__':
     # download_file_from_box(
     #     file_id='1476681059130',
     #     download_path='test.xlsx'
     # )
-    print(read_box_excel_to_df(file_id='1476681059130'))
+    print(read_box_df(file_id='1476681059130'))
